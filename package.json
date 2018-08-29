@@ -1,0 +1,19 @@
+{
+  "name": "restfull_api",
+  "version": "0.0.1",
+  "description": "Building a RESTful API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "rest",
+    "api"
+  ],
+  "author": "Alex Mestafor <mestalex@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint-config-airbnb-base": "13.1.0",
+    "eslint-plugin-import": "2.14.0"
+  }
+}
