@@ -10,6 +10,25 @@ const url = require('url');
 const { StringDecoder } = require('string_decoder');
 const config = require('./config');
 
+// Define the heandlers
+const handlers = {};
+
+// Sample heandler
+handlers.ping = (data, callback) => {
+  // Callback a http status code, and a payload object
+  callback(200);
+};
+
+// Not found heandler
+handlers.notFound = (data, callback) => {
+  callback(404);
+};
+
+// Define a request router
+const router = {
+  ping: handlers.ping,
+};
+
 // All the server logic for both the http and https rserver
 const unifiedServer = (req, res) => {
   // Get the URL and parse it
@@ -56,30 +75,30 @@ const unifiedServer = (req, res) => {
       headers,
       payload: buffer,
     };
-    
+
     // Route the request to the handler specified in the router
     chosenHandler(data, (statusCode, payload) => {
       // Use the status code called back by the handler, or default to 200
-      statusCode = typeof statusCode === 'number' ? statusCode : 200;
+      const localStatusCode = typeof statusCode === 'number' ? statusCode : 200;
 
       // Use the payload called back by the handler, or default to an empty object
-      payload = typeof payload === 'object' ? payload : {};
+      const localPayload = typeof payload === 'object' ? payload : {};
 
       // Convert the payload to a string
-      const payloadString = JSON.stringify(payload);
+      const payloadString = JSON.stringify(localPayload);
 
       // Set header to response
       res.setHeader('Content-type', 'application/json');
 
       // Return the response
-      res.writeHead(statusCode);
+      res.writeHead(localStatusCode);
 
       // Send the response
       res.end(payloadString);
 
       // Log the request path
       console.log(
-        `Returning this response: ${statusCode}`,
+        `Returning this response: ${localStatusCode}`,
       );
     });
   });
@@ -104,23 +123,3 @@ const httpsServer = https.createServer(httpsServerOptions, unifiedServer);
 httpsServer.listen(config.httpsPort, () => {
   console.log(`The server is listening on port ${config.httpsPort} in ${config.envName} mode`);
 });
-
-
-// Define the heandlers
-const handlers = {};
-
-// Sample heandler
-handlers.ping = (data, callback) => {
-  // Callback a http status code, and a payload object
-  callback(200);
-};
-
-// Not found heandler
-handlers.notFound = (data, callback) => {
-  callback(404);
-};
-
-// Define a request router
-const router = {
-  ping: handlers.ping,
-};
