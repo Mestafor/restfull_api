@@ -8,25 +8,14 @@ const http = require('http');
 const https = require('https');
 const url = require('url');
 const { StringDecoder } = require('string_decoder');
-const config = require('./config');
-
-// Define the heandlers
-const handlers = {};
-
-// Sample heandler
-handlers.ping = (data, callback) => {
-  // Callback a http status code, and a payload object
-  callback(200);
-};
-
-// Not found heandler
-handlers.notFound = (data, callback) => {
-  callback(404);
-};
+const config = require('./lib/config');
+const handlers = require('./lib/handlers');
+const helpers = require('./lib/helpers');
 
 // Define a request router
 const router = {
   ping: handlers.ping,
+  users: handlers.users,
 };
 
 // All the server logic for both the http and https rserver
@@ -36,21 +25,16 @@ const unifiedServer = (req, res) => {
   console.log(`Parsed url: ${JSON.stringify(parsedUrl, null, 2)}`);
   // Get path
   const path = parsedUrl.pathname;
-  console.log(`Path: ${path}`);
   const trimmedPath = path.replace(/^\/+|\/+$/g, '');
-  console.log('Trimmed path: ', trimmedPath);
 
   // Get the query string as an object
   const queryStringObject = parsedUrl.query;
-  console.log('Query string:', queryStringObject);
 
   // Get HTTP Method
   const method = req.method.toLocaleLowerCase();
-  console.log('Method: ', method);
 
   // Get the headers as an object
   const { headers } = req;
-  console.log('Request recieved with these headers:', headers);
 
   // Get the payload, if any
   const decoder = new StringDecoder('utf-8');
@@ -73,7 +57,7 @@ const unifiedServer = (req, res) => {
       queryStringObject,
       method,
       headers,
-      payload: buffer,
+      payload: helpers.parseJsonToObject(buffer),
     };
 
     // Route the request to the handler specified in the router
