@@ -1,5 +1,5 @@
 /**
- * Promary file for the API
+ * Primary file for the API
  */
 
 // Dependencies
