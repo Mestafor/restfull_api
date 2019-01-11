@@ -1,6 +1,6 @@
 /https
 /node_modules
-.data/checks/*
-.data/tokens/*
-.data/users/*
-.logs/*
+.data/checks/**/*
+.data/tokens/**/*
+.data/users/**/*
+.logs/**/*
