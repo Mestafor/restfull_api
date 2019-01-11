@@ -13,7 +13,7 @@ _app.tests = {};
 
 // Add on the unit tests
 _app.tests.unit = require('./unit');
-_app.tests.api = require('./api');
+// _app.tests.api = require('./api');
 
 // Produce a test outcome report
 _app.producetestreport = (limit, successes, errors) => {
