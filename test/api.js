@@ -19,7 +19,7 @@ helpers.makeGetRequest = (path, callback) => {
     protocol: 'http:',
     hostname: 'localhost',
     port: config.httpPort,
-    ethod: 'GET',
+    method: 'GET',
     path,
     headers: {
       'Content-type': 'application/json',
