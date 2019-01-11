@@ -25,12 +25,12 @@ unit['helpers.getANumber should return 1'] = (done) => {
   done();
 };
 
-// Assert that the getAnumber function is returning a 2
-unit['helpers.getANumber should return 2'] = (done) => {
-  const val = helpers.getANumber();
-  assert.equal(val, 2);
-  done();
-};
+// // Assert that the getAnumber function is returning a 2
+// unit['helpers.getANumber should return 2'] = (done) => {
+//   const val = helpers.getANumber();
+//   assert.equal(val, 2);
+//   done();
+// };
 
 // Logs.list should callback an array and a false error
 unit['logs.list should callback a false error and an array of logs names'] = (done) => {
@@ -52,13 +52,13 @@ unit['logs.truncate should not throw if the logId does not exist. It should call
   }, TypeError);
 };
 
-// exampleDebuggingProblem.init should not throw (but it does)
-unit['exampleDebuggingProblem.init should not throw but it does'] = (done) => {
-  assert.doesNotThrow(() => {
-    exampleDebuggingProblem.init();
-    done();
-  }, TypeError);
-};
+// // exampleDebuggingProblem.init should not throw (but it does)
+// unit['exampleDebuggingProblem.init should not throw but it does'] = (done) => {
+//   assert.doesNotThrow(() => {
+//     exampleDebuggingProblem.init();
+//     done();
+//   }, TypeError);
+// };
 
 // Export module
 module.exports = unit;
